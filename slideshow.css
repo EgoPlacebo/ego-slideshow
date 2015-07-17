@@ -1,0 +1,138 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*remove list styling*/
+li{
+	list-style:none;
+}
+
+/*Styling the UL: This will be full screen, adjust height if required*/
+.ego-slideshow, 
+.ego-slideshow:after {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+}
+
+/*Places a pattern over the image (can be removed if not needed) pattern image needs some transparency so not to obscure main img*/
+.ego-slideshow:after{
+  content: '';
+  background: transparent url(images/pattern.png) repeat top left;
+}
+
+/*The span that contains the slideshow image- text color is transparent so we don't see it...
+opacity is set to 0 - this changes during animation. */
+.ego-slideshow li span{
+  	width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: transparent;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: none;
+    opacity: 0;
+    z-index: 0;
+    animation: imageAnimation 36s linear infinite 0s; 
+}
+
+/* This styles the div containing the h3 - visible text on top of the image */
+.ego-slideshow li div {
+  z-index: 1000;
+    position: absolute;
+    bottom: 30px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    color: #fff;
+    animation: titleAnimation 36s linear infinite 0s; 
+}
+
+/*This styles the H3 text floating over the image*/
+.ego-slideshow li div h3 {
+  font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+    font-size: 240px;
+    padding: 0;
+    line-height: 200px; 
+	top:24%;
+}
+
+
+/* defining background images for each of the spans, and the animation delay 
+so each image and title will appear 6 seconds after the previous one */
+.ego-slideshow li:nth-child(1) span{
+  background-image: url(images/1.jpg);
+}
+.ego-slideshow li:nth-child(2) span {
+  background-image: url(images/2.jpg);
+    animation-delay: 6s;
+}
+.ego-slideshow li:nth-child(3) span{
+  background-image:url(images/3.jpg);
+    animation-delay:12s;
+}
+.ego-slideshow li:nth-child(4) span{
+  background-image:url(images/4.jpg);
+  animation-delay: 18s;
+}
+.ego-slideshow li:nth-child(5) span { 
+    background-image: url(images/5.jpg);
+    animation-delay: 24s;
+}
+.ego-slideshow li:nth-child(6) span {
+  background-image: url(images/6.jpg);
+    animation-delay: 30s;
+}
+/*Snimation delay for text*/
+.ego-slideshow li:nth-child(2) div{
+  animation-delay: 6s;
+}
+.ego-slideshow li:nth-child(3) div{
+  animation-delay: 12s;
+}
+.ego-slideshow li:nth-child(4) div { 
+    animation-delay: 18s; 
+}
+.ego-slideshow li:nth-child(5) div { 
+    animation-delay: 24s; 
+}
+.ego-slideshow li:nth-child(6) div { 
+    animation-delay: 30s; 
+}
+
+/* Each span has an animation time of 36seconds (6 images @ 6s per image)
+In those 36s we change the opacity from 0 to 1 and back to 0  */
+@keyframes imageAnimation { 
+    0% { opacity: 0; animation-timing-function: ease-in; }
+    8% { opacity: 1; animation-timing-function: ease-out; }
+    17% { opacity: 1 }
+    25% { opacity: 0 }
+    100% { opacity: 0 }
+}
+@keyframes titleAnimation { 
+    0% { opacity: 0 }
+    8% { opacity: 1 }
+    17% { opacity: 1 }
+    19% { opacity: 0 }
+    100% { opacity: 0 }
+}
+
+/* for Browsers that don't support animations... Requires Modernizr */
+.no-cssanimations .ego-slideshow li span{
+	opacity: 1;
+}
+
+/* media queries to change text size for reduced width screens */
+@media screen and (max-width: 1140px) { 
+    .ego-slideshow li div h3 { font-size: 140px }
+}
+@media screen and (max-width: 600px) { 
+    .ego-slideshow li div h3 { font-size: 80px }
+}
+
+/* Original source: http://tympanus.net/codrops/2012/01/02/fullscreen-background-image-slideshow-with-css3/ */
